@@ -291,7 +291,8 @@ void _addReplyStringToList(redisClient *c, char *s, size_t len) {
  * -------------------------------------------------------------------------- */
 
 void addReply(redisClient *c, robj *obj) {
-    if (prepareClientToWrite(c) != REDIS_OK) return;
+    if (prepareClientToWrite(c) != REDIS_OK)
+        return;
 
     /* This is an important place where we can avoid copy-on-write
      * when there is a saving child running, avoiding touching the
@@ -846,11 +847,12 @@ void sendReplyToClient(aeEventLoop *el, int fd, void *privdata, int mask) {
             (server.maxmemory == 0 ||
              zmalloc_used_memory() < server.maxmemory)) break;
     }
+
     if (nwritten == -1) {
         if (errno == EAGAIN) {
             nwritten = 0;
         } else {
-            redisLog(REDIS_VERBOSE,
+            redisLog(REDIS_WARNING,
                 "Error writing to client: %s", strerror(errno));
             freeClient(c);
             return;

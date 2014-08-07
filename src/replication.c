@@ -284,14 +284,10 @@ long long addReplyReplicationBacklog(redisClient *c, long long offset) {
         return 0;
     }
 
-    redisLog(REDIS_DEBUG, "[PSYNC] Backlog size: %lld",
-             server.repl_backlog_size);
-    redisLog(REDIS_DEBUG, "[PSYNC] First byte: %lld",
-             server.repl_backlog_off);
-    redisLog(REDIS_DEBUG, "[PSYNC] History len: %lld",
-             server.repl_backlog_histlen);
-    redisLog(REDIS_DEBUG, "[PSYNC] Current index: %lld",
-             server.repl_backlog_idx);
+    redisLog(REDIS_DEBUG, "[PSYNC] Backlog size: %lld", server.repl_backlog_size);
+    redisLog(REDIS_DEBUG, "[PSYNC] First byte: %lld", server.repl_backlog_off);
+    redisLog(REDIS_DEBUG, "[PSYNC] History len: %lld", server.repl_backlog_histlen);
+    redisLog(REDIS_DEBUG, "[PSYNC] Current index: %lld", server.repl_backlog_idx);
 
     /* Compute the amount of bytes we need to discard. */
     skip = offset - server.repl_backlog_off;
